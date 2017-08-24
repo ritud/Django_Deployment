@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'main_app/index.css' %}" />
+  </head>
+  <body>
+    <div class="main">
+    <div class="header">
+      <a href="/pokes/logout">Logout</a>
+      <h2>Welcome , {{request.session.alias}}!</h2>
+      <p>{{count}} people poked you!</p>
+   </div>
+   <div class="upper" style="margin-top:20px; border:1px solid black; width:300px; height:auto">
+     {% for poke in pokes %}
+     <p>{{poke.from_user.alias}} poked you {{poke.poke}} times.</p>
+     {% endfor %}
+   </div>
+   <div class="lower">
+     <h3>People you may want to poke:</h3>
+     <table border="1">
+       <tr><th>Name</th><th>Alias</th><th>Email Address</th><th>Poke History</th><th>Action</th></tr>
+       {% for user in users %}
+       <tr>
+         {% if user.id != request.session.id %}
+           <form action="/pokes/addpoke/{{user.id}}" method="post">
+             {% csrf_token %}
+           <td>{{user.name}}</td>
+           <td>{{user.alias}}</td>
+           <td>{{user.email}}</td>
+           <td>{{user.pokes}} pokes</td>
+           <td><input type="submit" value="Poke !">
+           </form>
+        {% endif %}
+       {% endfor %}
+     </table>
+   </div>
+ </div>
+  </body>
+</html>

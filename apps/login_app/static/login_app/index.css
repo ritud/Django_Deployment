@@ -1,0 +1,17 @@
+table{
+  margin:auto;
+  border:2px solid darkgrey;
+  background-color: lightgrey;
+}
+
+table td{
+  width:200px;
+  margin:20px;
+}
+.upper{
+  margin-top: 50px;
+}
+
+.lower{
+  margin-top: 30px;
+}
